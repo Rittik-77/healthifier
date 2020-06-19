@@ -1,0 +1,29 @@
+Spring_Intellij/healthifier/HELP.md
+Spring_Intellij/healthifier/Steps.md
+Spring_Intellij/healthifier/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+Spring_Intellij/healthifier/.idea/
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
