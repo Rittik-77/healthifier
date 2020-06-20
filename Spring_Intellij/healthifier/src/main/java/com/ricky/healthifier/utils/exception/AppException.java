@@ -7,6 +7,9 @@ public class AppException extends Exception {
     private String uiMessage;
     private ExceptionLevel exceptionLevel;
 
+    /**
+     * By default, ExceptionLevel is set to ERROR
+     */
     public AppException(String uiMessage) {
         super();
         this.uiMessage = uiMessage;
