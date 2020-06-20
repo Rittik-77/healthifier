@@ -3,6 +3,7 @@ package com.ricky.healthifier.controller.food;
 import com.ricky.healthifier.datamodel.food.Food;
 import com.ricky.healthifier.entity.food.FoodDTO;
 import com.ricky.healthifier.service.food.FoodService;
+import com.ricky.healthifier.utils.exception.AppException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class FoodController {
     private final FoodVOTransformer foodVOTransformer = new FoodVOTransformer();
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<FoodVO> getAllFood() {
+    public List<FoodVO> getAllFood() throws AppException {
 
         logger.info("Rest: Fetch all Foods");
 
@@ -41,7 +42,9 @@ public class FoodController {
             foodVOList.add(foodVO);
         }
 
-        //Return the list
+        logger.info("Rest: Success Fetching all Foods");
+
+        // Return the list
         return foodVOList;
     }
 }

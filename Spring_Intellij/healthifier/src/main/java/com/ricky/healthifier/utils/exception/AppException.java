@@ -6,6 +6,7 @@ public class AppException extends Exception {
 
     private String uiMessage;
     private ExceptionLevel exceptionLevel;
+    private String detailedMessage;
 
     /**
      * By default, ExceptionLevel is set to ERROR
@@ -16,10 +17,11 @@ public class AppException extends Exception {
         this.exceptionLevel = ExceptionLevel.ERROR;
     }
 
-    public AppException(String uiMessage, ExceptionLevel exceptionLevel) {
+    public AppException(String uiMessage, ExceptionLevel exceptionLevel, String detailedMessage) {
         super();
         this.uiMessage = uiMessage;
         this.exceptionLevel = exceptionLevel;
+        this.detailedMessage = detailedMessage;
     }
 
     public String getUiMessage() {
@@ -42,4 +44,11 @@ public class AppException extends Exception {
         return serialVersionUID;
     }
 
+    public String getDetailedMessage() {
+        return detailedMessage;
+    }
+
+    public void setDetailedMessage(String detailedMessage) {
+        this.detailedMessage = detailedMessage;
+    }
 }

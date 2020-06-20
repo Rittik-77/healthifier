@@ -1,6 +1,10 @@
 CREATE DATABASE IF NOT EXISTS `healthifier_db`;
 USE `healthifier_db`;
 
+--
+-- Drop Existing Tables and Create Afresh
+--
+
 DROP TABLE IF EXISTS `food`;
 DROP TABLE IF EXISTS `quantity_enum`;
 
@@ -8,6 +12,10 @@ CREATE TABLE `quantity_enum`(
 	`qty_enum` VARCHAR(7),
     PRIMARY KEY (`qty_enum`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Insert values in quantity_enum table
+--
 
 INSERT INTO `quantity_enum` VALUES ('GRAM');
 INSERT INTO `quantity_enum` VALUES ('ML');
