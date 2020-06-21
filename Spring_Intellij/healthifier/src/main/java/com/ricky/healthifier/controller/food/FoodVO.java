@@ -9,16 +9,18 @@ public class FoodVO {
     private QuantityEnum qtyEnum;
     private double qty;
     private double calories;
+    private String imageUrl;
 
     public FoodVO() {
 
     }
 
-    public FoodVO(String name, QuantityEnum qtyEnum, double qty, double calories) {
+    public FoodVO(String name, QuantityEnum qtyEnum, double qty, double calories, String imageUrl) {
         this.name = name;
         this.qtyEnum = qtyEnum;
         this.qty = qty;
         this.calories = calories;
+        this.imageUrl = imageUrl;
     }
 
     public int getId() {
@@ -61,6 +63,14 @@ public class FoodVO {
         this.calories = calories;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public String toString() {
         return "Food{" +
@@ -69,6 +79,7 @@ public class FoodVO {
                 ", qtyEnum=" + qtyEnum +
                 ", qty=" + qty +
                 ", calories=" + calories +
+                ", imageUrl=" + imageUrl +
                 '}';
     }
 }

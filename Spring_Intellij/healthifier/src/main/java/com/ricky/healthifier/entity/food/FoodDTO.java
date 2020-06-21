@@ -24,15 +24,19 @@ public class FoodDTO {
     @Column(name = "calories")
     private double calories;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     public FoodDTO() {
 
     }
 
-    public FoodDTO(String name, QuantityEnumDTO qtyEnumDTO, double qty, double calories) {
+    public FoodDTO(String name, QuantityEnumDTO qtyEnumDTO, double qty, double calories, String imageUrl) {
         this.name = name;
         this.qtyEnumDTO = qtyEnumDTO;
         this.qty = qty;
         this.calories = calories;
+        this.imageUrl = imageUrl;
     }
 
     public int getId() {
@@ -75,6 +79,14 @@ public class FoodDTO {
         this.calories = calories;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public String toString() {
         return "FoodDTO{" +
@@ -83,6 +95,7 @@ public class FoodDTO {
                 ", qtyEnumDTO=" + qtyEnumDTO +
                 ", qty=" + qty +
                 ", calories=" + calories +
+                ", imageUrl=" + imageUrl +
                 '}';
     }
 }

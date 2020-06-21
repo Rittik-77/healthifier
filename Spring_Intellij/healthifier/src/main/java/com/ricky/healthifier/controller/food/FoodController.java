@@ -36,7 +36,7 @@ public class FoodController {
 
         // Transform the list
         ListIterator<Food> foodListIterator = foodList.listIterator();
-        List<FoodVO> foodVOList = new ArrayList<FoodVO>();
+        List<FoodVO> foodVOList = new ArrayList<>();
         while(foodListIterator.hasNext()) {
             FoodVO foodVO = foodVOTransformer.transformToVO(foodListIterator.next());
             foodVOList.add(foodVO);

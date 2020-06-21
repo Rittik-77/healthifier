@@ -11,6 +11,7 @@ public class FoodVOTransformer {
         foodVO.setQtyEnum(food.getQtyEnum());
         foodVO.setQty(food.getQty());
         foodVO.setCalories(food.getCalories());
+        foodVO.setImageUrl(food.getImageUrl());
         return foodVO;
     }
 }

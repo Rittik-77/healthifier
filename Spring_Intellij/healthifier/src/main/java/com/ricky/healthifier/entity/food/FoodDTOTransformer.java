@@ -18,6 +18,7 @@ public class FoodDTOTransformer {
         food.setQtyEnum(stringToEnumConverter(foodDTO.getQtyEnumDTO().getQtyEnum()));
         food.setQty(foodDTO.getQty());
         food.setCalories(foodDTO.getCalories());
+        food.setImageUrl(foodDTO.getImageUrl());
         return food;
     }
 

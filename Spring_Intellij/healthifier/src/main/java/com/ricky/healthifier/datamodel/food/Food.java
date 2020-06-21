@@ -7,16 +7,18 @@ public class Food {
     private QuantityEnum qtyEnum;
     private double qty;
     private double calories;
+    private String imageUrl;
 
     public Food() {
 
     }
 
-    public Food(String name, QuantityEnum qtyEnum, double qty, double calories) {
+    public Food(String name, QuantityEnum qtyEnum, double qty, double calories, String imageUrl) {
         this.name = name;
         this.qtyEnum = qtyEnum;
         this.qty = qty;
         this.calories = calories;
+        this.imageUrl = imageUrl;
     }
 
     public int getId() {
@@ -59,6 +61,14 @@ public class Food {
         this.calories = calories;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public String toString() {
         return "Food{" +
@@ -67,6 +77,7 @@ public class Food {
                 ", qtyEnum=" + qtyEnum +
                 ", qty=" + qty +
                 ", calories=" + calories +
+                ", imageUrl=" + imageUrl +
                 '}';
     }
 }
