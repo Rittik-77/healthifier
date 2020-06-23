@@ -27,3 +27,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### DB Feeder Directory ###
+Spring_Intellij/healthifier/src/main/resources/dbFeeder/

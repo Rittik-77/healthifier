@@ -8,4 +8,8 @@ import java.util.List;
 public interface FoodService {
 
     List<Food> getAllFoods() throws AppException;
+
+    boolean initializeFoodDB() throws AppException;
+
+    boolean deleteFoodDBAtExit();
 }

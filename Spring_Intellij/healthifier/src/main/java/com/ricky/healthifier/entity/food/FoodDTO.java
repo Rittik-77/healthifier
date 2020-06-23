@@ -14,7 +14,7 @@ public class FoodDTO {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "qty_enum")
     private QuantityEnumDTO qtyEnumDTO;
 
