@@ -74,15 +74,16 @@ public class FoodServiceImpl implements FoodService {
             file = new FileReader(new File(jsonFilePath));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            throw new AppException("DB Feeder file not found");
         }
 
         JSONArray jsonArray = null;
         try {
             jsonArray = (JSONArray)jsonParser.parse(file);
         } catch (IOException e) {
-            throw new AppException("Problem reading json file");
+            throw new AppException("Error reading json file");
         } catch (ParseException e) {
-            throw new AppException("Problem parsing json file");
+            throw new AppException("Error parsing json file");
         }
 
         Iterator<JSONObject> foodDataIterator = jsonArray.iterator();
