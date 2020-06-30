@@ -21,8 +21,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = FoodController.class)
 @ActiveProfiles("test")

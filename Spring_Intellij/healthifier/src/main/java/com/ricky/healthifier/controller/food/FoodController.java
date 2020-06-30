@@ -1,7 +1,6 @@
 package com.ricky.healthifier.controller.food;
 
 import com.ricky.healthifier.datamodel.food.Food;
-import com.ricky.healthifier.entity.food.FoodDTO;
 import com.ricky.healthifier.service.food.FoodService;
 import com.ricky.healthifier.utils.exception.AppException;
 import org.slf4j.Logger;

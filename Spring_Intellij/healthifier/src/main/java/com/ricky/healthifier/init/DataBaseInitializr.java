@@ -3,7 +3,6 @@ package com.ricky.healthifier.init;
 import com.ricky.healthifier.service.init.InitService;
 import com.ricky.healthifier.utils.exception.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
