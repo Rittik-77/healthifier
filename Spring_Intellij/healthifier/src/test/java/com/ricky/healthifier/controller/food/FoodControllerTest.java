@@ -1,0 +1,63 @@
+package com.ricky.healthifier.controller.food;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ricky.healthifier.datamodel.food.Food;
+import com.ricky.healthifier.datamodel.food.QuantityEnum;
+import com.ricky.healthifier.service.food.FoodService;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static org.junit.Assert.*;
+
+@RunWith(SpringRunner.class)
+@WebMvcTest(controllers = FoodController.class)
+@ActiveProfiles("test")
+public class FoodControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private FoodService foodService;
+
+    @Before
+    public void setUp() throws Exception {
+
+        Food f1 = new Food("food1", QuantityEnum.GRAM, 78.9, 98.6, "five");
+        f1.setId(1);
+        Food f2 = new Food("food2", QuantityEnum.ML, 75.9, 28.6, "fi4ve");
+        f2.setId(5);
+        Mockito.when(foodService.getAllFoods()).thenReturn(new ArrayList<>(Arrays.asList(f1,f2)));
+    }
+
+    @Test
+    public void getAllFood() throws Exception {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        FoodVO f1 = new FoodVO("food1", QuantityEnum.GRAM, 78.9, 98.6, "five");
+        f1.setId(1);
+        FoodVO f2 = new FoodVO("food2", QuantityEnum.ML, 75.9, 28.6, "fi4ve");
+        f2.setId(5);
+
+        String json = objectMapper.writeValueAsString(Arrays.asList(f1,f2));
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/foods")).andReturn();
+        String res = result.getResponse().getContentAsString();
+
+        Assert.assertEquals(json, res);
+    }
+}

@@ -1,8 +1,9 @@
 package com.ricky.healthifier.init;
 
-import com.ricky.healthifier.service.food.FoodService;
+import com.ricky.healthifier.service.init.InitService;
 import com.ricky.healthifier.utils.exception.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -12,11 +13,11 @@ import javax.annotation.PreDestroy;
 public class DataBaseInitializr {
 
     @Autowired
-    private FoodService foodService;
+    private InitService initService;
 
     @PostConstruct
     public void feedValuesToDB() throws AppException {
-        boolean response = foodService.initializeFoodDB();
+        boolean response = initService.initializeFoodDB();
 
         if(!response) {
             throw new AppException("Error initializing Food DB");
@@ -25,7 +26,7 @@ public class DataBaseInitializr {
 
     @PreDestroy
     public void deleteValuesFromDB() throws AppException {
-        boolean response = foodService.deleteFoodDBAtExit();
+        boolean response = initService.deleteFoodDBAtExit();
         if(!response) {
             throw new AppException("Error deleting Food DB");
         }

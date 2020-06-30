@@ -7,7 +7,6 @@ import com.ricky.healthifier.entity.food.QuantityEnumDTO;
 import com.ricky.healthifier.utils.exception.AppException;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -52,8 +51,6 @@ public class FoodServiceImplTest {
 
         List<Food> foodList = foodService.getAllFoods();
         ListIterator<Food> foodListIterator = foodList.listIterator();
-
-        System.out.println(foodList);
 
         // Store all the food names in this Set and compare the size to check uniqueness
         Set<String> foodNames = new HashSet<>();
