@@ -5,6 +5,7 @@
 	-- Drop Existing Tables and Create Afresh
 	--
 
+	DROP TABLE IF EXISTS `workout`;
 	DROP TABLE IF EXISTS `food`;
 	DROP TABLE IF EXISTS `quantity_enum`;
 
@@ -31,3 +32,11 @@
 		PRIMARY KEY (`id`),
 		CONSTRAINT `fk_qty_enum` FOREIGN KEY (`qty_enum`) REFERENCES `quantity_enum`(`qty_enum`)
 	) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+    
+    CREATE TABLE `workout` (
+		`id` INT AUTO_INCREMENT,
+        `name` VARCHAR(50) NOT NULL UNIQUE,
+        `weight_person_kg` REAL NOT NULL,
+        `calories_per_hour` REAL NOT NULL,
+        PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;

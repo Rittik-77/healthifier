@@ -1,8 +1,10 @@
 package com.ricky.healthifier.service.init;
 
 import com.ricky.healthifier.dao.FoodDAO;
+import com.ricky.healthifier.dao.WorkoutDAO;
 import com.ricky.healthifier.entity.food.FoodDTO;
 import com.ricky.healthifier.entity.food.QuantityEnumDTO;
+import com.ricky.healthifier.entity.workout.WorkoutDTO;
 import com.ricky.healthifier.utils.exception.AppException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -25,33 +27,41 @@ public class InitServiceImpl implements InitService {
     @Autowired
     private FoodDAO foodDAO;
 
+    @Autowired
+    private WorkoutDAO workoutDAO;
+
     private final Logger logger = LoggerFactory.getLogger(InitServiceImpl.class);
 
     @Override
-    public boolean initializeFoodDB() throws AppException {
+    public boolean initializeDBs() throws AppException {
 
-        logger.info("Populating Food DB with initial values");
+        logger.info("Populating DB with initial values");
 
         JSONParser jsonParser = new JSONParser();
-        String jsonFilePath = "D:\\CodeRepo\\PROJECTS\\GitHubProjects\\HealthifierApp\\Spring_Intellij\\healthifier\\src\\main\\resources\\dbFeeder\\foodDB.json";
-        FileReader file = null;
+        String foodJsonFilePath = "D:\\CodeRepo\\PROJECTS\\GitHubProjects\\HealthifierApp\\Spring_Intellij\\healthifier\\src\\main\\resources\\dbFeeder\\foodDB.json";
+        String workoutJsonFilePath = "D:\\CodeRepo\\PROJECTS\\GitHubProjects\\HealthifierApp\\Spring_Intellij\\healthifier\\src\\main\\resources\\dbFeeder\\workoutDB.json";
+        FileReader foodJsonFile;
+        FileReader workoutJsonFile;
         try {
-            file = new FileReader(new File(jsonFilePath));
+            foodJsonFile = new FileReader(new File(foodJsonFilePath));
+            workoutJsonFile = new FileReader(new File(workoutJsonFilePath));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             throw new AppException("DB Feeder file not found");
         }
 
-        JSONArray jsonArray = null;
+        JSONArray foodJsonArray;
+        JSONArray workoutJsonArray;
         try {
-            jsonArray = (JSONArray)jsonParser.parse(file);
+            foodJsonArray = (JSONArray)jsonParser.parse(foodJsonFile);
+            workoutJsonArray = (JSONArray)jsonParser.parse(workoutJsonFile);
         } catch (IOException e) {
             throw new AppException("Error reading json file");
         } catch (ParseException e) {
             throw new AppException("Error parsing json file");
         }
 
-        Iterator<JSONObject> foodDataIterator = jsonArray.iterator();
+        Iterator<JSONObject> foodDataIterator = foodJsonArray.iterator();
         while(foodDataIterator.hasNext()) {
             JSONObject foodData = foodDataIterator.next();
             String name = foodData.get("name").toString();
@@ -63,12 +73,25 @@ public class InitServiceImpl implements InitService {
             FoodDTO foodDTO = new FoodDTO(name, new QuantityEnumDTO(qty_enum), qty, calories, image_url);
             foodDAO.saveAndFlush(foodDTO);
         }
+
+        Iterator<JSONObject> workoutDataIterator = workoutJsonArray.iterator();
+        while (workoutDataIterator.hasNext()) {
+            JSONObject workoutData = workoutDataIterator.next();
+            String name = workoutData.get("name").toString();
+            double weight = Double.parseDouble(workoutData.get("weight_person_kg").toString());
+            double calories = Double.parseDouble(workoutData.get("calories_per_hour").toString());
+
+            WorkoutDTO workoutDTO = new WorkoutDTO(name, weight, calories);
+            workoutDAO.saveAndFlush(workoutDTO);
+        }
+
         return true;
     }
 
     @Override
-    public boolean deleteFoodDBAtExit() {
+    public boolean deleteDBsAtExit() {
         foodDAO.deleteAll();
+        workoutDAO.deleteAll();
         return true;
     }
 }

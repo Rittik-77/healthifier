@@ -16,7 +16,7 @@ public class DataBaseInitializr {
 
     @PostConstruct
     public void feedValuesToDB() throws AppException {
-        boolean response = initService.initializeFoodDB();
+        boolean response = initService.initializeDBs();
 
         if(!response) {
             throw new AppException("Error initializing Food DB");
@@ -25,7 +25,8 @@ public class DataBaseInitializr {
 
     @PreDestroy
     public void deleteValuesFromDB() throws AppException {
-        boolean response = initService.deleteFoodDBAtExit();
+        boolean response = initService.deleteDBsAtExit();
+
         if(!response) {
             throw new AppException("Error deleting Food DB");
         }

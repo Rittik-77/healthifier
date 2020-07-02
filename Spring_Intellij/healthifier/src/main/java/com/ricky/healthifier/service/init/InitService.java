@@ -4,7 +4,7 @@ import com.ricky.healthifier.utils.exception.AppException;
 
 public interface InitService {
 
-    boolean initializeFoodDB() throws AppException;
+    boolean initializeDBs() throws AppException;
 
-    boolean deleteFoodDBAtExit();
+    boolean deleteDBsAtExit();
 }
