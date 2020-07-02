@@ -8,16 +8,14 @@ public class Workout {
 
     private int id;
     private String name;
-    private double weightPersonInKg;
     private double caloriesBurntPerHour;
 
     public Workout() {
 
     }
 
-    public Workout(String name, double weightPersonInKg, double caloriesBurntPerHour) {
+    public Workout(String name, double caloriesBurntPerHour) {
         this.name = name;
-        this.weightPersonInKg = weightPersonInKg;
         this.caloriesBurntPerHour = caloriesBurntPerHour;
     }
 
@@ -37,14 +35,6 @@ public class Workout {
         this.name = name;
     }
 
-    public double getWeightPersonInKg() {
-        return weightPersonInKg;
-    }
-
-    public void setWeightPersonInKg(double weightPersonInKg) {
-        this.weightPersonInKg = weightPersonInKg;
-    }
-
     public double getCaloriesBurntPerHour() {
         return caloriesBurntPerHour;
     }
@@ -58,7 +48,6 @@ public class Workout {
         return "Workout{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", weightPersonInKg=" + weightPersonInKg +
                 ", caloriesBurntPerHour=" + caloriesBurntPerHour +
                 '}';
     }

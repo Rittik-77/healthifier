@@ -8,7 +8,6 @@ public class WorkoutVOTransformer {
         WorkoutVO workoutVO = new WorkoutVO();
         workoutVO.setId(workout.getId());
         workoutVO.setName(workout.getName());
-        workoutVO.setWeightPersonInKg(workout.getWeightPersonInKg());
         workoutVO.setCaloriesBurntPerHour(workout.getCaloriesBurntPerHour());
         return workoutVO;
     }

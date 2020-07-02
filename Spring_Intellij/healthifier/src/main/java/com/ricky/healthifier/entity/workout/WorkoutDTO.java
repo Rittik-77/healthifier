@@ -17,9 +17,6 @@ public class WorkoutDTO {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "weight_person_kg")
-    private double weightPersonInKg;
-
     @Column(name = "calories_per_hour")
     private double caloriesBurntPerHour;
 
@@ -27,9 +24,8 @@ public class WorkoutDTO {
 
     }
 
-    public WorkoutDTO(String name, double weightPersonInKg, double caloriesBurntPerHour) {
+    public WorkoutDTO(String name, double caloriesBurntPerHour) {
         this.name = name;
-        this.weightPersonInKg = weightPersonInKg;
         this.caloriesBurntPerHour = caloriesBurntPerHour;
     }
 
@@ -49,14 +45,6 @@ public class WorkoutDTO {
         this.name = name;
     }
 
-    public double getWeightPersonInKg() {
-        return weightPersonInKg;
-    }
-
-    public void setWeightPersonInKg(double weightPersonInKg) {
-        this.weightPersonInKg = weightPersonInKg;
-    }
-
     public double getCaloriesBurntPerHour() {
         return caloriesBurntPerHour;
     }
@@ -70,7 +58,6 @@ public class WorkoutDTO {
         return "WorkoutDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", weightPersonInKg=" + weightPersonInKg +
                 ", caloriesBurntPerHour=" + caloriesBurntPerHour +
                 '}';
     }

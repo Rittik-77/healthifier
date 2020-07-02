@@ -36,7 +36,6 @@
     CREATE TABLE `workout` (
 		`id` INT AUTO_INCREMENT,
         `name` VARCHAR(50) NOT NULL UNIQUE,
-        `weight_person_kg` REAL NOT NULL,
         `calories_per_hour` REAL NOT NULL,
         PRIMARY KEY (`id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;

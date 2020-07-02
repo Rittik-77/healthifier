@@ -8,7 +8,6 @@ public class WorkoutDTOTransformer {
         Workout workout = new Workout();
         workout.setId(workoutDTO.getId());
         workout.setName(workoutDTO.getName());
-        workout.setWeightPersonInKg(workoutDTO.getWeightPersonInKg());
         workout.setCaloriesBurntPerHour(workoutDTO.getCaloriesBurntPerHour());
         return workout;
     }

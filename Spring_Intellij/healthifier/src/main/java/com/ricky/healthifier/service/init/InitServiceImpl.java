@@ -78,10 +78,9 @@ public class InitServiceImpl implements InitService {
         while (workoutDataIterator.hasNext()) {
             JSONObject workoutData = workoutDataIterator.next();
             String name = workoutData.get("name").toString();
-            double weight = Double.parseDouble(workoutData.get("weight_person_kg").toString());
             double calories = Double.parseDouble(workoutData.get("calories_per_hour").toString());
 
-            WorkoutDTO workoutDTO = new WorkoutDTO(name, weight, calories);
+            WorkoutDTO workoutDTO = new WorkoutDTO(name, calories);
             workoutDAO.saveAndFlush(workoutDTO);
         }
 
