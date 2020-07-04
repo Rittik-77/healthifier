@@ -1,9 +1,9 @@
-package com.ricky.healthifier.controller.food;
+package com.ricky.healthifier.controller.workout;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ricky.healthifier.datamodel.food.Food;
-import com.ricky.healthifier.datamodel.food.QuantityEnum;
-import com.ricky.healthifier.service.food.FoodService;
+import com.ricky.healthifier.datamodel.workout.Workout;
+import com.ricky.healthifier.service.workout.WorkoutService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,46 +18,47 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
+import static org.junit.Assert.*;
+
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = FoodController.class)
+@WebMvcTest(controllers = WorkoutController.class)
 @ActiveProfiles("test")
-public class FoodControllerTest {
+public class WorkoutControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private FoodService foodService;
+    private WorkoutService workoutService;
 
     @Before
     public void setUp() throws Exception {
 
-        // Mock the service
-        Food f1 = new Food("food1", QuantityEnum.GRAM, 78.9, 98.6, "five");
-        f1.setId(1);
-        Food f2 = new Food("food2", QuantityEnum.ML, 75.9, 28.6, "fi4ve");
-        f2.setId(5);
-        Mockito.when(foodService.getAllFoods()).thenReturn(new ArrayList<>(Arrays.asList(f1,f2)));
+        Workout w1 = new Workout("abc", 56.7);
+        w1.setId(1);
+        Workout w2 = new Workout("xyz", 98);
+        w2.setId(3);
+        Mockito.when(workoutService.getAllWorkouts()).thenReturn(Arrays.asList(w1, w2));
     }
 
     @Test
-    public void testGetAllFood() throws Exception {
+    public void testGetAllWorkouts() throws Exception {
 
         // For converting to json
         ObjectMapper objectMapper = new ObjectMapper();
 
         // Prepare the expected response
-        FoodVO f1 = new FoodVO("food1", QuantityEnum.GRAM, 78.9, 98.6, "five");
-        f1.setId(1);
-        FoodVO f2 = new FoodVO("food2", QuantityEnum.ML, 75.9, 28.6, "fi4ve");
-        f2.setId(5);
-        String json = objectMapper.writeValueAsString(Arrays.asList(f1,f2));
+        WorkoutVO w1 = new WorkoutVO("abc", 56.7);
+        w1.setId(1);
+        WorkoutVO w2 = new WorkoutVO("xyz", 98);
+        w2.setId(3);
+        String json = objectMapper.writeValueAsString(Arrays.asList(w1,w2));
 
         // Call the API to get the actual response
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/foods")).andReturn();
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/workouts")).andReturn();
         String res = result.getResponse().getContentAsString();
 
         // Assert the response

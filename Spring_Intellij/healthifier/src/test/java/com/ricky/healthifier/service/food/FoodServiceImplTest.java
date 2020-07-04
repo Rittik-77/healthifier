@@ -1,6 +1,8 @@
 package com.ricky.healthifier.service.food;
 
+import com.ricky.healthifier.controller.food.FoodController;
 import com.ricky.healthifier.dao.FoodDAO;
+import com.ricky.healthifier.dao.WorkoutDAO;
 import com.ricky.healthifier.datamodel.food.Food;
 import com.ricky.healthifier.entity.food.FoodDTO;
 import com.ricky.healthifier.entity.food.QuantityEnumDTO;
@@ -11,9 +13,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,8 +34,18 @@ public class FoodServiceImplTest {
     @MockBean
     private FoodDAO foodDAO;
 
+    /**
+     * WorkoutDAO is not needed here, but when used as a MockBean, it also mocks the init service which uses this
+     * workoutDAO to feed values to DataBase.
+     * Basically, it helps in omitting the PostConstruct for this table
+     */
+    @MockBean
+    private WorkoutDAO workoutDAO;
+
     @Before
-    public void mock() {
+    public void setUp() {
+
+        // Mocking the DAO
         List<FoodDTO> mockFoodList = new ArrayList<>();
         FoodDTO f1 = new FoodDTO("abc", new QuantityEnumDTO("GRAM"), 12, 13, "blah.jpg");
         f1.setId(1);
