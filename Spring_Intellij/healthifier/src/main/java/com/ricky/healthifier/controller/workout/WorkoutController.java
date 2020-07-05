@@ -23,7 +23,7 @@ public class WorkoutController {
     @Autowired
     private WorkoutService workoutService;
 
-    private Logger logger = LoggerFactory.getLogger(WorkoutController.class);
+    private final Logger logger = LoggerFactory.getLogger(WorkoutController.class);
     private final WorkoutVOTransformer transformer = new WorkoutVOTransformer();
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
