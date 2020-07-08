@@ -23,7 +23,7 @@ public class FoodController {
     private FoodService foodService;
 
     private final Logger logger = LoggerFactory.getLogger(FoodController.class);
-    private final FoodVOTransformer foodVOTransformer = new FoodVOTransformer();
+    private final FoodVOTransformer transformer = new FoodVOTransformer();
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<FoodVO> getAllFood() throws AppException {
@@ -37,7 +37,7 @@ public class FoodController {
         ListIterator<Food> foodListIterator = foodList.listIterator();
         List<FoodVO> foodVOList = new ArrayList<>();
         while(foodListIterator.hasNext()) {
-            FoodVO foodVO = foodVOTransformer.transformToVO(foodListIterator.next());
+            FoodVO foodVO = transformer.transformToVO(foodListIterator.next());
             foodVOList.add(foodVO);
         }
 

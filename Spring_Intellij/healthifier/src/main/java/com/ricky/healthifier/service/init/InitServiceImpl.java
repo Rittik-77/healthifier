@@ -91,6 +91,8 @@ public class InitServiceImpl implements InitService {
     public boolean deleteDBsAtExit() {
         foodDAO.deleteAll();
         workoutDAO.deleteAll();
+
+        logger.info("Deleted all DataBase Contents");
         return true;
     }
 }
