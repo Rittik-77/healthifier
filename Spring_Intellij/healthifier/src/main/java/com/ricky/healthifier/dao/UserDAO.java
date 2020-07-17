@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserDAO extends JpaRepository<UserDTO, Integer> {
+public interface UserDAO extends JpaRepository<UserDTO, String> {
 
-    Optional<UserDTO> findUserDTOByEmail(String email);
 }

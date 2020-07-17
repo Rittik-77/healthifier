@@ -10,8 +10,6 @@ public class UserVOTransformer {
 
     public User transformToModel(UserVO userVO) throws AppException {
         User user = new User();
-        if (userVO.getId() != null)
-            user.setId(userVO.getId());
         if (userVO.getEmail() != null)
             user.setEmail(userVO.getEmail());
         if (userVO.getUsername() != null)

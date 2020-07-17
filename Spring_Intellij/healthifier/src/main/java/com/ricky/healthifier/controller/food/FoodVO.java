@@ -4,31 +4,22 @@ import com.ricky.healthifier.datamodel.food.QuantityEnum;
 
 public class FoodVO {
 
-    private int id;
     private String name;
     private QuantityEnum qtyEnum;
-    private double qty;
-    private double calories;
+    private Double qty;
+    private Double calories;
     private String imageUrl;
 
     public FoodVO() {
 
     }
 
-    public FoodVO(String name, QuantityEnum qtyEnum, double qty, double calories, String imageUrl) {
+    public FoodVO(String name, QuantityEnum qtyEnum, Double qty, Double calories, String imageUrl) {
         this.name = name;
         this.qtyEnum = qtyEnum;
         this.qty = qty;
         this.calories = calories;
         this.imageUrl = imageUrl;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -47,19 +38,19 @@ public class FoodVO {
         this.qtyEnum = qtyEnum;
     }
 
-    public double getQty() {
+    public Double getQty() {
         return qty;
     }
 
-    public void setQty(double qty) {
+    public void setQty(Double qty) {
         this.qty = qty;
     }
 
-    public double getCalories() {
+    public Double getCalories() {
         return calories;
     }
 
-    public void setCalories(double calories) {
+    public void setCalories(Double calories) {
         this.calories = calories;
     }
 
@@ -74,7 +65,6 @@ public class FoodVO {
     @Override
     public String toString() {
         return "Food{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", qtyEnum=" + qtyEnum +
                 ", qty=" + qty +

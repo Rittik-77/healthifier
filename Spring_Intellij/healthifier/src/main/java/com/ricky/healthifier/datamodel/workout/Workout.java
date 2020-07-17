@@ -1,30 +1,17 @@
 package com.ricky.healthifier.datamodel.workout;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 public class Workout {
 
-    private int id;
     private String name;
-    private double caloriesBurntPerHour;
+    private Double caloriesBurntPerHour;
 
     public Workout() {
 
     }
 
-    public Workout(String name, double caloriesBurntPerHour) {
+    public Workout(String name, Double caloriesBurntPerHour) {
         this.name = name;
         this.caloriesBurntPerHour = caloriesBurntPerHour;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -35,18 +22,17 @@ public class Workout {
         this.name = name;
     }
 
-    public double getCaloriesBurntPerHour() {
+    public Double getCaloriesBurntPerHour() {
         return caloriesBurntPerHour;
     }
 
-    public void setCaloriesBurntPerHour(double caloriesBurntPerHour) {
+    public void setCaloriesBurntPerHour(Double caloriesBurntPerHour) {
         this.caloriesBurntPerHour = caloriesBurntPerHour;
     }
 
     @Override
     public String toString() {
         return "Workout{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", caloriesBurntPerHour=" + caloriesBurntPerHour +
                 '}';

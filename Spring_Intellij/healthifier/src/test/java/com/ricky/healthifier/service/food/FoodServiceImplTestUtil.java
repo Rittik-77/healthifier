@@ -6,7 +6,6 @@ import org.junit.Assert;
 public class FoodServiceImplTestUtil {
 
     public static void assertNotNull(Food food) {
-        Assert.assertNotNull(food.getId());
         Assert.assertNotNull(food.getName());
         Assert.assertNotNull(food.getQtyEnum());
         Assert.assertNotNull(food.getQty());

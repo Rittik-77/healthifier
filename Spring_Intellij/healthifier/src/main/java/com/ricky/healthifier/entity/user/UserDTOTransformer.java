@@ -12,7 +12,6 @@ public class UserDTOTransformer {
 
     public User transformToModel(UserDTO userDTO) throws AppException {
         User user = new User();
-        user.setId(userDTO.getId());
         user.setEmail(userDTO.getEmail());
         user.setUsername(userDTO.getUsername());
         user.setPassword(userDTO.getPassword());
@@ -32,8 +31,6 @@ public class UserDTOTransformer {
 
     public UserDTO transformToDTO(User user) {
         UserDTO userDTO = new UserDTO();
-        if(user.getId() != null)
-            userDTO.setId(user.getId());
         userDTO.setEmail(user.getEmail());
         userDTO.setUsername(user.getUsername());
         userDTO.setPassword(user.getPassword());

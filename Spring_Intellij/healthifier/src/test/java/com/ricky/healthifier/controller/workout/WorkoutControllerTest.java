@@ -38,9 +38,7 @@ public class WorkoutControllerTest {
     public void setUp() throws Exception {
 
         Workout w1 = new Workout("abc", 56.7);
-        w1.setId(1);
-        Workout w2 = new Workout("xyz", 98);
-        w2.setId(3);
+        Workout w2 = new Workout("xyz", 98.0);
         Mockito.when(workoutService.getAllWorkouts()).thenReturn(Arrays.asList(w1, w2));
     }
 
@@ -52,9 +50,7 @@ public class WorkoutControllerTest {
 
         // Prepare the expected response
         WorkoutVO w1 = new WorkoutVO("abc", 56.7);
-        w1.setId(1);
-        WorkoutVO w2 = new WorkoutVO("xyz", 98);
-        w2.setId(3);
+        WorkoutVO w2 = new WorkoutVO("xyz", 98.0);
         String json = objectMapper.writeValueAsString(Arrays.asList(w1,w2));
 
         // Call the API to get the actual response

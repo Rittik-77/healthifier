@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface FoodDAO extends JpaRepository<FoodDTO, Integer> {
+public interface FoodDAO extends JpaRepository<FoodDTO, String> {
 
-    Optional<FoodDTO> findFoodDTOByName(String name);
 }

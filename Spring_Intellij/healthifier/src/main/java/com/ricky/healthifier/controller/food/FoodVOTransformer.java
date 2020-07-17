@@ -6,7 +6,6 @@ public class FoodVOTransformer {
 
     public FoodVO transformToVO(Food food) {
         FoodVO foodVO = new FoodVO();
-        foodVO.setId(food.getId());
         foodVO.setName(food.getName());
         foodVO.setQtyEnum(food.getQtyEnum());
         foodVO.setQty(food.getQty());

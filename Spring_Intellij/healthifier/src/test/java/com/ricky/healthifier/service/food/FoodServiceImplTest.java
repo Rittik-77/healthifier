@@ -48,9 +48,7 @@ public class FoodServiceImplTest {
         // Mocking the DAO
         List<FoodDTO> mockFoodList = new ArrayList<>();
         FoodDTO f1 = new FoodDTO("abc", new QuantityEnumDTO("GRAM"), 12, 13, "blah.jpg");
-        f1.setId(1);
         FoodDTO f2 = new FoodDTO("xyz", new QuantityEnumDTO("ML"), 10, 15, "blah.jpg");
-        f2.setId(2);
         mockFoodList.add(f1);
         mockFoodList.add(f2);
         Mockito.when(foodDAO.findAll()).thenReturn(Stream.of(f1,f2).collect(Collectors.toList()));

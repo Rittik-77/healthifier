@@ -13,7 +13,6 @@ public class FoodDTOTransformer {
 
     public Food transformToModel(FoodDTO foodDTO) throws AppException {
         Food food = new Food();
-        food.setId(foodDTO.getId());
         food.setName(foodDTO.getName());
         food.setQtyEnum(stringToEnumConverter(foodDTO.getQtyEnumDTO().getQtyEnum()));
         food.setQty(foodDTO.getQty());

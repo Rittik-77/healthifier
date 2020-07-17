@@ -2,7 +2,6 @@ package com.ricky.healthifier.controller.auth;
 
 public class UserVO {
 
-    private Integer id;
     private String email;
     private String username;
     private String password;
@@ -19,14 +18,6 @@ public class UserVO {
         this.password = password;
         this.weight = weight;
         this.role = role;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -72,7 +63,6 @@ public class UserVO {
     @Override
     public String toString() {
         return "UserVO{" +
-                "id=" + id +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

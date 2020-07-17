@@ -10,10 +10,6 @@ import javax.persistence.*;
 public class WorkoutDTO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
     @Column(name = "name")
     private String name;
 
@@ -27,14 +23,6 @@ public class WorkoutDTO {
     public WorkoutDTO(String name, double caloriesBurntPerHour) {
         this.name = name;
         this.caloriesBurntPerHour = caloriesBurntPerHour;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -56,7 +44,6 @@ public class WorkoutDTO {
     @Override
     public String toString() {
         return "WorkoutDTO{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", caloriesBurntPerHour=" + caloriesBurntPerHour +
                 '}';

@@ -7,10 +7,6 @@ import javax.persistence.*;
 public class FoodDTO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
     @Column(name = "name")
     private String name;
 
@@ -37,14 +33,6 @@ public class FoodDTO {
         this.qty = qty;
         this.calories = calories;
         this.imageUrl = imageUrl;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -90,7 +78,6 @@ public class FoodDTO {
     @Override
     public String toString() {
         return "FoodDTO{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", qtyEnumDTO=" + qtyEnumDTO +
                 ", qty=" + qty +

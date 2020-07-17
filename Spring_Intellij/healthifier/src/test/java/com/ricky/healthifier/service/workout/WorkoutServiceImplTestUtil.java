@@ -6,7 +6,6 @@ import org.junit.Assert;
 public class WorkoutServiceImplTestUtil {
 
     public static void assertNotNull(Workout workout) {
-        Assert.assertNotNull(workout.getId());
         Assert.assertNotNull(workout.getName());
         Assert.assertNotNull(workout.getCaloriesBurntPerHour());
     }

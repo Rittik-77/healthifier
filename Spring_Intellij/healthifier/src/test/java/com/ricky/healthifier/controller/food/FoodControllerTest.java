@@ -37,9 +37,7 @@ public class FoodControllerTest {
 
         // Mock the service
         Food f1 = new Food("food1", QuantityEnum.GRAM, 78.9, 98.6, "five");
-        f1.setId(1);
         Food f2 = new Food("food2", QuantityEnum.ML, 75.9, 28.6, "fi4ve");
-        f2.setId(5);
         Mockito.when(foodService.getAllFoods()).thenReturn(new ArrayList<>(Arrays.asList(f1,f2)));
     }
 
@@ -51,9 +49,7 @@ public class FoodControllerTest {
 
         // Prepare the expected response
         FoodVO f1 = new FoodVO("food1", QuantityEnum.GRAM, 78.9, 98.6, "five");
-        f1.setId(1);
         FoodVO f2 = new FoodVO("food2", QuantityEnum.ML, 75.9, 28.6, "fi4ve");
-        f2.setId(5);
         String json = objectMapper.writeValueAsString(Arrays.asList(f1,f2));
 
         // Call the API to get the actual response

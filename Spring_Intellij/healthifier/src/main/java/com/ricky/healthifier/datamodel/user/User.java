@@ -1,10 +1,7 @@
 package com.ricky.healthifier.datamodel.user;
 
-import com.ricky.healthifier.entity.user.RoleEnumDTO;
-
 public class User {
 
-    private Integer id;
     private String email;
     private String username;
     private String password;
@@ -21,14 +18,6 @@ public class User {
         this.password = password;
         this.weight = weight;
         this.roleEnum = roleEnum;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -74,7 +63,6 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

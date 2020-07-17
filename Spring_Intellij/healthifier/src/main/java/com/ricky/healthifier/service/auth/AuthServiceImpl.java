@@ -33,7 +33,6 @@ public class AuthServiceImpl implements AuthService {
         logger.info(AuthServiceConstants.START_REGISTER);
 
         // Validate the payload
-        BaseValidator.checkObjectIsNull(user.getId(), AuthServiceConstants.ID + BaseConstants.SPACE + BaseConstants.SHOULD_BE_NULL);
         BaseValidator.checkObjectIsNotNull(user.getEmail(), AuthServiceConstants.EMAIL + BaseConstants.SPACE + BaseConstants.SHOULD_NOT_BE_NULL);
         BaseValidator.checkObjectIsNotNull(user.getPassword(), AuthServiceConstants.PASSWORD + BaseConstants.SPACE + BaseConstants.SHOULD_NOT_BE_NULL);
         BaseValidator.checkObjectIsNotNull(user.getUsername(), AuthServiceConstants.USERNAME + BaseConstants.SPACE + BaseConstants.SHOULD_NOT_BE_NULL);
@@ -41,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
         BaseValidator.checkObjectIsNotNull(user.getWeight(), AuthServiceConstants.WEIGHT + BaseConstants.SPACE + BaseConstants.SHOULD_NOT_BE_NULL);
 
         // Verify if User with same email exists
-        Optional<UserDTO> userDTO = userDAO.findUserDTOByEmail(user.getEmail());
+        Optional<UserDTO> userDTO = userDAO.findById(user.getEmail());
         BaseValidator.checkObjectIsNull(userDTO.orElse(null), AuthServiceConstants.USER_ALREADY_EXISTS);
 
         // Hash the password
@@ -63,7 +62,6 @@ public class AuthServiceImpl implements AuthService {
         logger.info(AuthServiceConstants.START_LOGIN);
 
         // Validate the Payload
-        BaseValidator.checkObjectIsNull(loginUser.getId(), AuthServiceConstants.ID + BaseConstants.SPACE + BaseConstants.SHOULD_BE_NULL);
         BaseValidator.checkObjectIsNotNull(loginUser.getEmail(), AuthServiceConstants.EMAIL + BaseConstants.SPACE + BaseConstants.SHOULD_NOT_BE_NULL);
         BaseValidator.checkObjectIsNotNull(loginUser.getPassword(), AuthServiceConstants.PASSWORD + BaseConstants.SPACE + BaseConstants.SHOULD_NOT_BE_NULL);
         BaseValidator.checkObjectIsNull(loginUser.getUsername(), AuthServiceConstants.USERNAME + BaseConstants.SPACE + BaseConstants.SHOULD_BE_NULL);
@@ -71,7 +69,7 @@ public class AuthServiceImpl implements AuthService {
         BaseValidator.checkObjectIsNull(loginUser.getWeight(), AuthServiceConstants.WEIGHT + BaseConstants.SPACE + BaseConstants.SHOULD_BE_NULL);
 
         // Extract the User from DataBase
-        Optional<UserDTO> optionalUserDTO = userDAO.findUserDTOByEmail(loginUser.getEmail());
+        Optional<UserDTO> optionalUserDTO = userDAO.findById(loginUser.getEmail());
         UserDTO userDTO = optionalUserDTO.orElse(null);
         BaseValidator.checkObjectIsNotNull(userDTO, AuthServiceConstants.USER_DOES_NOT_EXISTS);
 

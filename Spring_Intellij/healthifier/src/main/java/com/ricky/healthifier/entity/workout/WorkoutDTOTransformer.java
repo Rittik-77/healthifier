@@ -6,7 +6,6 @@ public class WorkoutDTOTransformer {
 
     public Workout transformToModel(WorkoutDTO workoutDTO) {
         Workout workout = new Workout();
-        workout.setId(workoutDTO.getId());
         workout.setName(workoutDTO.getName());
         workout.setCaloriesBurntPerHour(workoutDTO.getCaloriesBurntPerHour());
         return workout;

@@ -7,10 +7,6 @@ import javax.persistence.*;
 public class UserDTO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
     @Column(name = "email")
     private String email;
 
@@ -37,14 +33,6 @@ public class UserDTO {
         this.password = password;
         this.weight = weight;
         this.roleEnumDTO = roleEnumDTO;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -90,7 +78,6 @@ public class UserDTO {
     @Override
     public String toString() {
         return "UserDTO{" +
-                "id=" + id +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
