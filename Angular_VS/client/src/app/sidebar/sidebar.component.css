@@ -6,7 +6,7 @@
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0; /* Stay on left */
-    background-color: rgb(2, 37, 18); /* Black */
+    background-color: rgb(8, 187, 88); /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px; 
     margin-top: 50px; /* Leaving top 50 px for header */
@@ -17,12 +17,13 @@
     padding: 6px 8px 6px 16px;
     text-decoration: none; /* to remove underline from link */
     font-size: 20px;
-    color: white;
+    color: rgb(98, 15, 146);
     display: block;
+    font-weight: 700;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
-    color: rgb(7, 153, 197);
+    color: blueviolet
 }
   

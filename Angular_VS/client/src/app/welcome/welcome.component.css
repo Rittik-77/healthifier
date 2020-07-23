@@ -1,0 +1,14 @@
+.jumbotron {
+    width: 50%;
+    margin: 20vh auto;
+    padding: 10vh auto;
+    background-color: rgb(201, 15, 56)
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 4vw;
+}
