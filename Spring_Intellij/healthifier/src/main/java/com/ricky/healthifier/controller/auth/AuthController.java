@@ -1,5 +1,7 @@
 package com.ricky.healthifier.controller.auth;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ricky.healthifier.datamodel.user.User;
 import com.ricky.healthifier.service.auth.AuthService;
 import com.ricky.healthifier.utils.commons.BaseConstants;
@@ -23,6 +25,7 @@ public class AuthController {
 
     private final Logger logger = LoggerFactory.getLogger(AuthController.class);
     private final UserVOTransformer transformer = new UserVOTransformer();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @RequestMapping(value = "register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean register(@RequestBody UserVO userVO) throws AppException, NoSuchAlgorithmException {
@@ -33,12 +36,13 @@ public class AuthController {
         return authService.register(user);
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
-    public String login(@RequestBody UserVO userVO) throws NoSuchAlgorithmException, AppException {
+    @RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String login(@RequestBody UserVO userVO) throws NoSuchAlgorithmException, AppException, JsonProcessingException {
 
         logger.info("Rest: User Logging");
         BaseValidator.checkObjectIsNotNull(userVO, "UserVO payload should not be null");
         User user = transformer.transformToModel(userVO);
-        return authService.login(user);
+        String token = authService.login(user);
+        return objectMapper.writeValueAsString(token);
     }
 }

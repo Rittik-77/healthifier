@@ -3,11 +3,13 @@ package com.ricky.healthifier.controller.workout;
 import com.ricky.healthifier.datamodel.food.Food;
 import com.ricky.healthifier.datamodel.workout.Workout;
 import com.ricky.healthifier.service.workout.WorkoutService;
+import com.ricky.healthifier.utils.commons.BaseConstants;
 import com.ricky.healthifier.utils.exception.AppException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,7 @@ import java.util.ListIterator;
 
 @RestController
 @RequestMapping("/api/workouts")
+@CrossOrigin(BaseConstants.APP_LINK)
 public class WorkoutController {
 
     @Autowired
