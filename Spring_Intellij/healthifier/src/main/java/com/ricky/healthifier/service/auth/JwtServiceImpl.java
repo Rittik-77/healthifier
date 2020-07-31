@@ -1,6 +1,7 @@
 package com.ricky.healthifier.service.auth;
 
 import com.ricky.healthifier.datamodel.user.User;
+import com.ricky.healthifier.utils.exception.AppException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,19 +15,16 @@ import java.util.function.Function;
 @Service
 public class JwtServiceImpl implements JwtService {
 
-    private static final String NAME = "name";
-    private static final String ROLE = "role";
-    private static final String WEIGHT = "weight";
-    private static final long TEN_HOURS = 1000 * 60 * 60 * 10;
+    private static final String TOKEN_EXPIRED = "Token Expired. Please Login again to continue";
+    private static final long ONE_HOUR = 1000 * 60 * 60;
     private static final String SECRET_KEY = "Smoking is injurious to health";
 
     @Override
-    public String extractUsername(String token) {
+    public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    @Override
-    public Date extractExpirationDate(String token) {
+    private Date extractExpirationDate(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
@@ -42,9 +40,6 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put(ROLE, user.getRoleEnum().toString());
-        claims.put(NAME, user.getUsername());
-        claims.put(WEIGHT, user.getWeight());
         return createToken(claims, user.getEmail());
     }
 
@@ -53,20 +48,16 @@ public class JwtServiceImpl implements JwtService {
         Date currentTime = new Date(System.currentTimeMillis());
 
         // token will expire after 10 hours of issue
-        Date expirationTime = new Date(currentTime.getTime() + TEN_HOURS);
+        Date expirationTime = new Date(currentTime.getTime() + ONE_HOUR);
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(currentTime)
                 .setExpiration(expirationTime).signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
     @Override
-    public boolean validateToken(String token, User user) {
-        final String username = extractUsername(token);
-        return (username.equals(user.getEmail()) && (!isTokenExpired(token)));
-    }
-
-    private boolean isTokenExpired(String token) {
-        return extractExpirationDate(token).before(new Date());
+    public void checkIsTokenExpired(String token) throws AppException {
+        if (extractExpirationDate(token).before(new Date()))
+            throw new AppException(TOKEN_EXPIRED);
     }
 
 }

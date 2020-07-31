@@ -25,5 +25,12 @@ export class AuthService extends BaseHttpService {
     const url = Constants.AUTH + 'login'
     return this.post(url, payload)
   }
+  
+  // Check is User Logged In
+  isLoggedIn(): boolean {
+    if (localStorage.getItem('token'))
+      return true
+    return false
+  }
 
 }

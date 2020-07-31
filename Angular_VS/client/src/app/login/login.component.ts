@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { User } from '../models/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as Constants from '../app.constants';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +16,10 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) { }
-  
+
   showToastMessage: string
   loginResponse: string
   loginSuccess: boolean
@@ -68,13 +70,18 @@ export class LoginComponent implements OnInit {
         // Navigate to my summary page with success toast
         this.loginResponse = Constants.LOGIN_SUCCESS_MSG
         this.loginSuccess = true
+        this.userService.getLoggedUsername()
+          .subscribe(response => {
+            console.log(response as string)
+            localStorage.setItem('username', response as string)
+          }, error => console.log(error))
         setTimeout(() => {
-          this.router.navigateByUrl(Constants.SUMMARY)  
+          this.router.navigateByUrl(Constants.SUMMARY)
         }, 3500);
       }, error => {
-          // Display the failure toast
-          this.loginFailure = true
-          this.loginResponse = Constants.LOGIN_FAIL_MSG + error.error.uiMessage
+        // Display the failure toast
+        this.loginFailure = true
+        this.loginResponse = Constants.LOGIN_FAIL_MSG + error.error.uiMessage
       });
   }
 

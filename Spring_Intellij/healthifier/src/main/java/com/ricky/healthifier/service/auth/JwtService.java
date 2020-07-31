@@ -1,16 +1,13 @@
 package com.ricky.healthifier.service.auth;
 
 import com.ricky.healthifier.datamodel.user.User;
-
-import java.util.Date;
+import com.ricky.healthifier.utils.exception.AppException;
 
 public interface JwtService {
 
-    String extractUsername(String token);
-
-    Date extractExpirationDate(String token);
+    String extractEmail(String token);
 
     String generateToken(User user);
 
-    boolean validateToken(String token, User user);
+    void checkIsTokenExpired(String token) throws AppException;
 }

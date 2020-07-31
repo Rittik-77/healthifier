@@ -14,6 +14,12 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { BaseHttpService } from './services/http/base-http.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { FoodTrackerComponent } from './food-tracker/food-tracker.component';
+import { WorkoutTrackerComponent } from './workout-tracker/workout-tracker.component';
+import { SummaryComponent } from './summary/summary.component';
+import { NotifyComponent } from './notify/notify.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TokenHttpService } from './services/http/token-http.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +30,12 @@ import { RegisterComponent } from './register/register.component';
     AboutComponent,
     WelcomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    FoodTrackerComponent,
+    WorkoutTrackerComponent,
+    SummaryComponent,
+    NotifyComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +44,8 @@ import { RegisterComponent } from './register/register.component';
     ReactiveFormsModule
   ],
   providers: [
-    BaseHttpService
+    BaseHttpService,
+    TokenHttpService
   ],
   bootstrap: [AppComponent]
 })

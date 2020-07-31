@@ -2,21 +2,17 @@
     <a class="navbar-brand" routerLink="welcome">Healthifier</a>
     <div class="navbar-right" style="display: flex">
         
-        <!-- <div *ngIf="usernameCalc(); then userIsLoggedIn else noUserIsLoggedIn"></div> -->
+        <div *ngIf="authService.isLoggedIn(); then userIsLoggedIn else noUserIsLoggedIn"></div>
 
-        <!-- <ng-template #userIsLoggedIn>
-            <a class="nav-link" routerLink="campgrounds/new">Add New Campground</a>
-            <span class="nav-link">Signed In As {{ usernameCalc() }}</span>
+        <ng-template #userIsLoggedIn>
+            <span class="navbar-text">Hi, {{ getUsername() }}</span>
             <button class="btn btn-link nav-link" (click)="logout()">LogOut</button>
-        </ng-template> -->
+        </ng-template>
 
-        <!-- <ng-template #noUserIsLoggedIn>
+        <ng-template #noUserIsLoggedIn>
             <a class="nav-link" routerLink="login">Sign In</a>
             <a class="nav-link" routerLink="register">Register</a>
-        </ng-template> -->
-
-          <a class="nav-link" routerLink="login">Sign In</a>
-          <a class="nav-link" routerLink="register">Register</a>
+        </ng-template>
 
     </div>
 </nav>
