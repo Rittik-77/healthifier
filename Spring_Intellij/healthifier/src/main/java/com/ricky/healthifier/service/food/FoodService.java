@@ -8,4 +8,6 @@ import java.util.List;
 public interface FoodService {
 
     List<Food> getAllFoods() throws AppException;
+
+    Food getFoodByName(String foodName) throws AppException;
 }

@@ -5,6 +5,7 @@ import com.ricky.healthifier.datamodel.food.Food;
 import com.ricky.healthifier.entity.food.FoodDTO;
 import com.ricky.healthifier.entity.food.FoodDTOTransformer;
 import com.ricky.healthifier.entity.food.QuantityEnumDTO;
+import com.ricky.healthifier.utils.commons.BaseValidator;
 import com.ricky.healthifier.utils.exception.AppException;
 import com.ricky.healthifier.utils.exception.ExceptionLevel;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class FoodServiceImpl implements FoodService {
     private FoodDAO foodDAO;
 
     private final Logger logger = LoggerFactory.getLogger(FoodServiceImpl.class);
-    private final FoodDTOTransformer foodDTOTransformer = new FoodDTOTransformer();
+    private final FoodDTOTransformer transformer = new FoodDTOTransformer();
     private final QuantityEnumDTO quantityEnumDTO = new QuantityEnumDTO();
 
     @Override
@@ -43,7 +44,7 @@ public class FoodServiceImpl implements FoodService {
         ListIterator<FoodDTO> foodDTOListIterator = foodDTOList.listIterator();
         List<Food> foodList = new ArrayList<>();
         while(foodDTOListIterator.hasNext()) {
-            Food food = foodDTOTransformer.transformToModel(foodDTOListIterator.next());
+            Food food = transformer.transformToModel(foodDTOListIterator.next());
             foodList.add(food);
         }
 
@@ -51,5 +52,21 @@ public class FoodServiceImpl implements FoodService {
 
         // Return list of food
         return foodList;
+    }
+
+    @Override
+    public Food getFoodByName(String foodName) throws AppException {
+
+        logger.info("Service: Start Fetching Food By its Name");
+
+        // Retrieve from Database
+        FoodDTO foodDTO = foodDAO.findById(foodName).orElse(null);
+        BaseValidator.checkObjectIsNotNull(foodDTO, "Food with requested name not found");
+
+        // Convert to Model
+        Food food = transformer.transformToModel(foodDTO);
+
+        logger.info("Service: Success Fetching Food By Name");
+        return food;
     }
 }

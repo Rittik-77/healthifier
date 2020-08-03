@@ -5,8 +5,8 @@
         <div *ngIf="authService.isLoggedIn(); then userIsLoggedIn else noUserIsLoggedIn"></div>
 
         <ng-template #userIsLoggedIn>
-            <span class="navbar-text">Hi, {{ getUsername() }}</span>
-            <button class="btn btn-link nav-link" (click)="logout()">LogOut</button>
+            <span class="navbar-text"><em>Hi, {{ getUsername() }}</em></span>
+            <button class="btn btn-link nav-link" (click)="logout()">Log Out</button>
         </ng-template>
 
         <ng-template #noUserIsLoggedIn>

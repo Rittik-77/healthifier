@@ -1,3 +1,117 @@
-<p>
-  food-tracker works!
-</p>
+<div class="container">
+  <button class="btn btn-success" (click)="onAdd()">
+    <i class="fa fa-plus-circle"></i> Add
+  </button>
+
+  <div class="card" *ngIf="enableAddForm">
+    <div class="card-header" style="background-color: darkblue; color: white">
+      <div class="row">
+        <div class="col">
+          Add Food Details
+        </div>
+        <div class="col-1">
+          <button class="btn btn-sm btn-danger" (click)="closeAddForm()">X</button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body" style="background-color: darkolivegreen">
+        <form [formGroup]="foodTrackerForm">
+          <label *ngIf="foodTrackerForm.touched && foodTrackerForm.invalid" style="color: red">
+              *All fields are mandatory
+          </label>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Food Name</span>
+                    </div>
+                    <input  type="text" 
+                            class="form-control" 
+                            id="foodName" 
+                            formControlName="foodName"
+                            placeholder="Type to search"
+                            list="foods"
+                            required
+                            aria-describedby="basic-addon1"
+                            (change)="addFormFoodNameChanged($event)">
+                    <datalist id="foods">
+                        <option *ngFor="let food of foodList" value="{{food.name}}">
+                    </datalist>
+                </div>
+            </div>
+          <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                      <input  type="text" 
+                              class="form-control" 
+                              id="amount" 
+                              formControlName="amount" 
+                              placeholder="Amount"
+                              required
+                              aria-describedby="basic-addon2">
+                      <div class="input-group-append">
+                          <span class="input-group-text" id="basic-addon2">
+                            {{calculatedQtyEnum}}
+                          </span>
+                      </div>        
+                    </div>        
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">Date</span>
+                        </div>
+                      <input  type="date" 
+                              class="form-control" 
+                              id="date" 
+                              formControlName="date" 
+                              required
+                              [max]="today"
+                              aria-describedby="basic-addon3">
+                    </div>
+                </div>
+            </div>
+          </div>
+          <button class="btn btn-info" 
+                  (click)="onSubmitAddToTracker()" 
+                  [disabled]="foodTrackerForm.invalid">
+                  Add to Tracker
+          </button>  
+        </form>
+    </div>
+  </div>
+  
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr class="bg-primary">
+        <th scope="col">Date</th>
+        <th scope="col">Food Name</th>
+        <th scope="col">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let foodTracker of foodTrackerList">
+        <td>{{foodTracker.date | date}}</td>
+        <td>{{foodTracker.foodName}}</td>
+        <td><div class="row">
+          <div class="col">
+              {{foodTracker.amount}}
+          </div>
+          <div class="col-4">
+              <button class="btn btn-sm btn-danger" (click)="onDelete(foodTracker)">
+                <i class="fa fa-trash"></i>
+              </button>
+              <button class="btn btn-sm btn-warning" (click)="onEdit(foodTracker)">
+                <i class="fa fa-edit"></i>
+              </button>
+          </div>
+        </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="listExist; then exist else notExist"></div>

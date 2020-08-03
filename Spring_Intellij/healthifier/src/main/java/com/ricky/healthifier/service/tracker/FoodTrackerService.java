@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface FoodTrackerService {
 
-    boolean addFoodToTracker(FoodTracker foodTracker) throws AppException;
+    boolean addFoodToTracker(FoodTracker foodTracker, String token) throws AppException;
+
+    List<FoodTracker> getFoodTracker(String token) throws AppException;
 }

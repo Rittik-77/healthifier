@@ -65,19 +65,17 @@ export class LoginComponent implements OnInit {
     // Make the http call
     this.authService.login(user)
       .subscribe(response => {
-        console.log(response as string)
         localStorage.setItem('token', response as string)
         // Navigate to my summary page with success toast
         this.loginResponse = Constants.LOGIN_SUCCESS_MSG
         this.loginSuccess = true
         this.userService.getLoggedUsername()
           .subscribe(response => {
-            console.log(response as string)
             localStorage.setItem('username', response as string)
           }, error => console.log(error))
         setTimeout(() => {
           this.router.navigateByUrl(Constants.SUMMARY)
-        }, 3500);
+        }, 1500);
       }, error => {
         // Display the failure toast
         this.loginFailure = true

@@ -3,15 +3,13 @@ package com.ricky.healthifier.controller.food;
 import com.ricky.healthifier.datamodel.food.Food;
 import com.ricky.healthifier.service.food.FoodService;
 import com.ricky.healthifier.utils.commons.BaseConstants;
+import com.ricky.healthifier.utils.commons.BaseValidator;
 import com.ricky.healthifier.utils.exception.AppException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +42,17 @@ public class FoodController {
             foodVOList.add(foodVO);
         }
 
-        logger.info("Rest: Success Fetching all Foods");
-
         // Return the list
         return foodVOList;
+    }
+
+    @RequestMapping(value = "{foodName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public FoodVO getFoodByName(@PathVariable String foodName) throws AppException {
+
+        logger.info("Rest: Fetch food by name");
+        BaseValidator.checkObjectIsNotNull(foodName, "Food Name should not be null");
+        Food food = foodService.getFoodByName(foodName);
+        FoodVO foodVO = transformer.transformToVO(food);
+        return foodVO;
     }
 }

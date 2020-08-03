@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class FoodTrackerDTOTransformer {
 
-    public FoodTrackerDTO transformToDTO(FoodTracker foodTracker){
+    public FoodTrackerDTO transformToDTO(FoodTracker foodTracker) {
 
         FoodTrackerDTO foodTrackerDTO = new FoodTrackerDTO();
         if (foodTracker.getId() != null)
@@ -22,5 +22,15 @@ public class FoodTrackerDTOTransformer {
         if (foodTracker.getAmount() != null)
             foodTrackerDTO.setAmount(foodTracker.getAmount());
         return foodTrackerDTO;
+    }
+
+    public FoodTracker transformToModel(FoodTrackerDTO foodTrackerDTO) {
+        FoodTracker foodTracker = new FoodTracker();
+        foodTracker.setFoodName(foodTrackerDTO.getFoodDTO().getName());
+        foodTracker.setEmail(foodTrackerDTO.getUserDTO().getEmail());
+        foodTracker.setDate(foodTrackerDTO.getDate());
+        foodTracker.setAmount(foodTrackerDTO.getAmount());
+        foodTracker.setId(foodTrackerDTO.getId());
+        return foodTracker;
     }
 }

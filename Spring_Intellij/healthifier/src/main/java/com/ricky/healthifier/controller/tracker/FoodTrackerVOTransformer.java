@@ -18,4 +18,14 @@ public class FoodTrackerVOTransformer {
             foodTracker.setFoodName(foodTrackerVO.getFoodName());
         return foodTracker;
     }
+
+    public FoodTrackerVO transformToVO(FoodTracker foodTracker) {
+        FoodTrackerVO foodTrackerVO = new FoodTrackerVO();
+        foodTrackerVO.setAmount(foodTracker.getAmount());
+        foodTrackerVO.setDate(foodTracker.getDate());
+        foodTrackerVO.setEmail(foodTracker.getEmail());
+        foodTrackerVO.setFoodName(foodTracker.getFoodName());
+        foodTrackerVO.setId(foodTracker.getId());
+        return foodTrackerVO;
+    }
 }

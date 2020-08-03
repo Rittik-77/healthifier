@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/foodTrackers")
 @CrossOrigin(BaseConstants.APP_LINK)
@@ -23,11 +27,14 @@ public class FoodTrackerController {
     private final FoodTrackerVOTransformer transformer = new FoodTrackerVOTransformer();
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean addFoodToTracker(@RequestBody FoodTrackerVO foodTrackerVO) throws AppException {
+    public boolean addFoodToTracker(@RequestBody FoodTrackerVO foodTrackerVO,
+                                    @RequestHeader Map<String, String> headers) throws AppException {
 
         logger.info("Rest: Add Food To Tracker");
 
-        // TODO: Validate the token
+        // Validate the token
+        String token = headers.getOrDefault(BaseConstants.TOKEN, null);
+        BaseValidator.checkObjectIsNotNull(token, BaseConstants.TOKEN_NULL);
 
         // Validate the payload
         BaseValidator.checkObjectIsNotNull(foodTrackerVO, "Payload should not be null");
@@ -36,6 +43,27 @@ public class FoodTrackerController {
         FoodTracker foodTracker = transformer.transformToModel(foodTrackerVO);
 
         // Call the service
-        return foodTrackerService.addFoodToTracker(foodTracker);
+        return foodTrackerService.addFoodToTracker(foodTracker, token);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<FoodTrackerVO> getFoodTracker(@RequestHeader Map<String, String> headers) throws AppException {
+
+        logger.info("Rest: Fetching Food Tracker");
+
+        // Validate the token
+        String token = headers.getOrDefault(BaseConstants.TOKEN, null);
+        BaseValidator.checkObjectIsNotNull(token, BaseConstants.TOKEN_NULL);
+
+        // Call the service
+        List<FoodTracker> foodTrackerList = foodTrackerService.getFoodTracker(token);
+
+        // Transform to VO
+        List<FoodTrackerVO> foodTrackerVOList = new ArrayList<>();
+        for (FoodTracker foodTracker : foodTrackerList) {
+            foodTrackerVOList.add(transformer.transformToVO(foodTracker));
+        }
+
+        return foodTrackerVOList;
     }
 }

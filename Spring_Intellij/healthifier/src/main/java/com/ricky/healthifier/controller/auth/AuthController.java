@@ -61,8 +61,7 @@ public class AuthController {
 
         logger.info("Rest: Fetching Username for logged in user");
         String token = headers.getOrDefault(BaseConstants.TOKEN, null);
-        if(token == null)
-            throw new AppException("Token not found in header");
+        BaseValidator.checkObjectIsNotNull(token, BaseConstants.TOKEN_NULL);
         String email = jwtService.extractEmail(token);
         String username = userService.extractUsernameFromEmail(email);
         return objectMapper.writeValueAsString(username);

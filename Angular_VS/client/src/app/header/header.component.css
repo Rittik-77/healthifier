@@ -15,5 +15,6 @@ a {
 }
 
 span {
-    color: lightcoral
+    color: lightcoral;
+    margin-top: 1px
 }
