@@ -1,6 +1,5 @@
 // Route Constants
 export const LOGIN = '/login'
-// Change to summary once the page is prepared
 export const SUMMARY = '/summary'
 
 export const API = 'http://localhost:8080/api/'

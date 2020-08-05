@@ -20,6 +20,8 @@ import { SummaryComponent } from './summary/summary.component';
 import { NotifyComponent } from './notify/notify.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TokenHttpService } from './services/http/token-http.service';
+import { FoodTrackerAddFormComponent } from './food-tracker-add-form/food-tracker-add-form.component';
+import { FoodTrackerEditFormComponent } from './food-tracker-edit-form/food-tracker-edit-form.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { TokenHttpService } from './services/http/token-http.service';
     WorkoutTrackerComponent,
     SummaryComponent,
     NotifyComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    FoodTrackerAddFormComponent,
+    FoodTrackerEditFormComponent
   ],
   imports: [
     BrowserModule,

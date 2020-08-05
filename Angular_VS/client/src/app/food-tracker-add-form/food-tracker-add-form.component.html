@@ -1,0 +1,60 @@
+<div class="card-header" style="background-color: darkblue; color: white">
+    <div class="row">
+        <div class="col">
+            Add Food Details
+        </div>
+        <div class="col-1">
+            <button class="btn btn-sm btn-danger" (click)="closeForm()">X</button>
+        </div>
+    </div>
+</div>
+
+<div class="card-body" style="background-color: darkolivegreen">
+    <form [formGroup]="foodTrackerForm">
+        <label *ngIf="foodTrackerForm.touched && foodTrackerForm.invalid" style="color: red">
+            *All fields are mandatory
+        </label>
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Food Name</span>
+                </div>
+                <input type="text" class="form-control" id="foodName" formControlName="foodName"
+                    placeholder="Type to search" list="foods" required aria-describedby="basic-addon1"
+                    (change)="addFormFoodNameChanged($event)">
+                <datalist id="foods">
+                    <option *ngFor="let food of foodList" value="{{food.name}}">
+                </datalist>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon2">
+                                Qty (in {{calculatedQtyEnum | lowercase}})
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="amount" formControlName="amount"
+                            placeholder="Amount" required aria-describedby="basic-addon2">
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">Date</span>
+                        </div>
+                        <input type="date" class="form-control" id="date" formControlName="date" required [max]="today"
+                            aria-describedby="basic-addon3">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-info" (click)="onSubmitAddToTracker()" [disabled]="foodTrackerForm.invalid">
+            Add to Tracker
+        </button>
+    </form>
+</div>

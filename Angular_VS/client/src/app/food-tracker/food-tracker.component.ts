@@ -13,31 +13,19 @@ import { Food } from '../models/food/food';
 export class FoodTrackerComponent implements OnInit {
 
   foodTrackerList: FoodTracker[]
-  foodList: Food[]
   listExist: boolean
   uiMessage: string
+
   enableAddForm: boolean
-  calculatedQtyEnum: string = 'grams'
-  today = new Date().toISOString().split("T")[0]
+  enableEditForm: boolean
 
-  foodTrackerForm = new FormGroup({
-    foodName: new FormControl('', Validators.required),
-    amount: new FormControl('', [Validators.required, Validators.pattern('[0-9]+([.][0-9]+)*')]),
-    date: new FormControl('', Validators.required)
-  })
-
-  get foodName() {
-    return this.foodTrackerForm.get('foodName')
-  }
-
-  get amount() {
-    return this.foodTrackerForm.get('amount')
-  }
-
-  get date() {
-    return this.foodTrackerForm.get('date')
-  }
-
+  // Edit_Food_Tracker Form properties
+  editFormFoodName: string
+  editFormAmount: number
+  editFormDate: string
+  editFormId: number
+  editFormQtyEnum: string
+  
   constructor(
     private foodTrackerService: FoodTrackerService,
     private foodService: FoodService
@@ -45,6 +33,11 @@ export class FoodTrackerComponent implements OnInit {
 
   ngOnInit() {
 
+    // Close all forms
+    this.enableAddForm = false
+    this.enableEditForm = false
+
+    // Fetch food tracker wrt logged user
     this.foodTrackerService.getFoodTracker()
       .subscribe(response => {
         this.foodTrackerList = response
@@ -56,52 +49,69 @@ export class FoodTrackerComponent implements OnInit {
           }
       })
     
-    this.foodService.getAllFoods()
-      .subscribe(response => {
-        this.foodList = response
-      }, error => console.log(error))
   }
 
   onAdd() {
+    this.enableEditForm = false
     this.enableAddForm = true
   }
 
-  closeAddForm() {
-    this.enableAddForm = false
-  }
-
-  addFormFoodNameChanged($event: any) {
-    if (event.target['value'] == '') {
-      this.calculatedQtyEnum = 'grams'
+  closeAddForm(eventObject: any) {
+    // validate if form needs to be closed
+    if (eventObject['closeAddForm']) {
+      this.enableAddForm = false
     }
 
-    this.foodService.getFoodByName(event.target['value'])
-      .subscribe(response => {
-        let food: Food = response
-        this.calculatedQtyEnum = food.qtyEnum
-        if (this.calculatedQtyEnum === 'NUMBER')
-          this.calculatedQtyEnum = 'N'
-        else
-          this.calculatedQtyEnum = this.calculatedQtyEnum.toLowerCase()
-      }, error => console.log(error))
+    // validate if page needs to be refreshed
+    if (eventObject['addResponse']) {
+      this.ngOnInit()
+    }
   }
 
-  onSubmitAddToTracker() {
-    let foodTrackerVO = new FoodTracker(this.date.value, this.foodName.value, this.amount.value)
-    this.foodTrackerService.addFoodToTracker(foodTrackerVO)
-      .subscribe(response => {
-        if (response as boolean) {
-          this.enableAddForm = false
-          this.ngOnInit()
-        }
-      }, error => console.log(error))
-  }
+  closeEditForm(eventObject: any) {
+    // validate if form needs to be closed
+    if (eventObject['closeEditForm']) {
+      this.enableEditForm = false
+    }
 
-  onDelete(foodTracker: FoodTracker) {
-    console.log(foodTracker)
+    // validate if page needs to be refreshed
+    if (eventObject['editResponse']) {
+      this.ngOnInit()
+    }
   }
 
   onEdit(foodTracker: FoodTracker) {
-    console.log(foodTracker)
+    // close add form
+    this.enableAddForm = false
+
+    // set variables to be sent to edit food tracker component
+    this.editFormId = foodTracker.id
+    this.editFormFoodName = foodTracker.foodName
+    this.editFormAmount = foodTracker.amount
+
+    // calculate date wrt IST
+    let date = new Date(foodTracker.date)
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+    this.editFormDate = date.toISOString().split("T")[0]
+
+    // calculate qty enum
+    this.foodService.getFoodByName(foodTracker.foodName)
+      .subscribe(response => {
+        let food: Food = response
+        this.editFormQtyEnum = food.qtyEnum
+      }, error => console.log(error))
+
+    // enable edit form
+    this.enableEditForm = true
   }
+
+  onDelete(foodTracker: FoodTracker) {
+    // Call API and refresh if successful
+    this.foodTrackerService.deleteFoodFromTracker(foodTracker.id)
+      .subscribe(response => {
+        if (response as boolean)
+          this.ngOnInit()
+      }, error => console.error())
+  }
+
 }

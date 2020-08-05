@@ -10,19 +10,31 @@ import * as Constants from '../../app.constants';
 })
 export class FoodTrackerService extends TokenHttpService {
 
-  baseUrl = Constants.API + 'foodTrackers';
+  baseUrl = Constants.API + 'foodTrackers/';
 
   constructor(protected http: HttpClient) {
     super(http)
   }
 
-  // Get Food Tracker
+  // Get All
   getFoodTracker(): Observable<any> {
     return this.get(this.baseUrl)
   }
 
-  // Add food to tracker
+  // Add
   addFoodToTracker(payload: FoodTracker): Observable<any> {
     return this.post(this.baseUrl, payload)
+  }
+
+  // Update
+  updateFoodToTracker(id: number, payload: FoodTracker): Observable<any> {
+    const url = this.baseUrl + id
+    return this.put(url, payload)
+  }
+
+  // Delete
+  deleteFoodFromTracker(id: number): Observable<any> {
+    const url = this.baseUrl + id
+    return this.delete(url)
   }
 }

@@ -110,4 +110,87 @@ public class FoodTrackerServiceImpl implements FoodTrackerService {
         return foodTrackerList;
     }
 
+    @Override
+    public boolean updateFoodInTracker(Integer id, FoodTracker foodTracker, String token) throws AppException {
+
+        logger.info("Service: Start updating food in tracker");
+
+        // Verify the payload
+        BaseValidator.checkObjectIsNotNull(foodTracker.getId(), "Id should not be null");
+        BaseValidator.checkObjectIsNotNull(foodTracker.getFoodName(), "Food Name cannot be null");
+        BaseValidator.checkObjectIsNotNull(foodTracker.getDate(), "Date should not be null");
+        BaseValidator.checkObjectIsNotNull(foodTracker.getAmount(), "Amount can not be null");
+        BaseValidator.checkObjectIsNull(foodTracker.getEmail(), "User Email should be null");
+
+        // Validate that id and foodTracker id should match
+        if(!foodTracker.getId().equals(id)) {
+            throw new AppException("Path Id and object id should match", ExceptionLevel.VALIDATION, "Malicious attack");
+        }
+
+        // Validate that Food Tracker already contained an item with this id
+        if(foodTrackerDAO.findById(id).isEmpty()) {
+            throw new AppException("Object with this id never existed in the database");
+        }
+
+        // Calculate email from token
+        String email = jwtService.extractEmail(token);
+        BaseValidator.checkObjectIsNotNull(email, "Token invalid");
+
+        // Verify that user exists in the Database
+        Optional<UserDTO> userDTOByEmail = userDAO.findById(email);
+        if(userDTOByEmail.isEmpty()) {
+            throw new AppException("User does not exists in the database", ExceptionLevel.VALIDATION, "Malicious attack. Alert!");
+        }
+
+        // Verify that food exists in the Database
+        Optional<FoodDTO> foodDTOByName = foodDAO.findById(foodTracker.getFoodName());
+        if(foodDTOByName.isEmpty()) {
+            throw new AppException("Food not present in Database", ExceptionLevel.VALIDATION, "Malicious attack. Alert!");
+        }
+
+        // Transform to DTO
+        FoodTrackerDTO foodTrackerDTO = transformer.transformToDTO(foodTracker);
+
+        // Food Name and Email has to be converted here as it depends on the services
+        foodTrackerDTO.setFoodDTO(foodDTOByName.get());
+        foodTrackerDTO.setUserDTO(userDTOByEmail.get());
+
+        // Save to DataBase
+        foodTrackerDAO.saveAndFlush(foodTrackerDTO);
+        logger.info("Service: Food updated successfully to tracker");
+
+        return true;
+    }
+
+    @Override
+    public boolean deleteFoodFromTracker(Integer id, String token) throws AppException {
+
+        logger.info("Service: Start deleting food from tracker");
+
+        // Validate that Food Tracker already contained an item with this id
+        if(foodTrackerDAO.findById(id).isEmpty()) {
+            throw new AppException("Object with this id never existed in the database");
+        }
+
+        // Calculate email from token
+        String email = jwtService.extractEmail(token);
+        BaseValidator.checkObjectIsNotNull(email, "Token invalid");
+
+        // Verify that user exists in the Database
+        Optional<UserDTO> userDTOByEmail = userDAO.findById(email);
+        if(userDTOByEmail.isEmpty()) {
+            throw new AppException("User does not exists in the database", ExceptionLevel.VALIDATION, "Malicious attack. Alert!");
+        }
+
+        // Delete from database
+        foodTrackerDAO.deleteById(id);
+
+        // Check delete was successful
+        if(!foodTrackerDAO.findById(id).isEmpty())
+            throw new AppException("Failed to delete from Database");
+
+        logger.info("Service: Success deleting Food from Tracker");
+
+        return true;
+    }
 }

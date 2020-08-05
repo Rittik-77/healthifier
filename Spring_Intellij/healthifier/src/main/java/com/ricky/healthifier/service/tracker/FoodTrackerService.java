@@ -10,4 +10,8 @@ public interface FoodTrackerService {
     boolean addFoodToTracker(FoodTracker foodTracker, String token) throws AppException;
 
     List<FoodTracker> getFoodTracker(String token) throws AppException;
+
+    boolean updateFoodInTracker(Integer id, FoodTracker foodTracker, String token) throws AppException;
+
+    boolean deleteFoodFromTracker(Integer id, String token) throws AppException;
 }
