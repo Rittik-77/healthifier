@@ -17,9 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -189,7 +187,7 @@ public class FoodTrackerServiceImpl implements FoodTrackerService {
         if(!foodTrackerDAO.findById(id).isEmpty())
             throw new AppException("Failed to delete from Database");
 
-        logger.info("Service: Success deleting Food from Tracker");
+        logger.info("Service: Successfully deleted Food from Tracker");
 
         return true;
     }

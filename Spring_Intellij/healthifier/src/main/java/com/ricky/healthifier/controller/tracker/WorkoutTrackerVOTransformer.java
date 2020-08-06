@@ -19,4 +19,14 @@ public class WorkoutTrackerVOTransformer {
             workoutTracker.setWorkoutName(workoutTrackerVO.getWorkoutName());
         return workoutTracker;
     }
+
+    public WorkoutTrackerVO transformToVO(WorkoutTracker workoutTracker) {
+        WorkoutTrackerVO workoutTrackerVO = new WorkoutTrackerVO();
+        workoutTrackerVO.setId(workoutTracker.getId());
+        workoutTrackerVO.setWorkoutName((workoutTracker.getWorkoutName()));
+        workoutTrackerVO.setDate(workoutTracker.getDate());
+        workoutTrackerVO.setDuration(workoutTracker.getDuration());
+        workoutTrackerVO.setEmail(workoutTracker.getEmail());
+        return workoutTrackerVO;
+    }
 }

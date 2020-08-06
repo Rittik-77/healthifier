@@ -98,7 +98,7 @@ public class FoodTrackerController {
         String token = headers.getOrDefault(BaseConstants.TOKEN, null);
         BaseValidator.checkObjectIsNotNull(token, BaseConstants.TOKEN_NULL);
 
-        // Validate the payload
+        // Validate the path param
         BaseValidator.checkObjectIsNotNull(foodTrackerId, "Food Tracker Id should not be null");
 
         // Call the service
