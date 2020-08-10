@@ -1,3 +1,50 @@
-<p>
-  workout-tracker works!
-</p>
+<div class="container">
+  <button class="btn btn-success" (click)="onAdd()">
+    <i class="fa fa-plus-circle"></i> Add
+  </button>
+
+  <div class="card" *ngIf="enableAddForm">
+    <app-workout-tracker-add-form (close)="closeAddForm($event)"></app-workout-tracker-add-form>
+  </div>
+
+  <div class="card" *ngIf="enableEditForm">
+    <app-workout-tracker-edit-form
+      [currentWorkoutTrackerName]="editFormWorkoutName"
+      [currentWorkoutTrackerDuration]="editFormDuration"
+      [currentWorkoutTrackerDate]="editFormDate"
+      [currentWorkoutTrackerId]="editFormId"
+      (close)="closeEditForm($event)">
+    </app-workout-tracker-edit-form>
+  </div>
+
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr class="bg-primary">
+        <th scope="col">Date</th>
+        <th scope="col">Workout Name</th>
+        <th scope="col">Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let workoutTracker of workoutTrackerList">
+        <td>{{workoutTracker.date | date}}</td>
+        <td>{{workoutTracker.workoutName}}</td>
+        <td>
+          <div class="row">
+            <div class="col">
+              {{workoutTracker.duration}}
+            </div>
+            <div class="col-4">
+              <button class="btn btn-sm btn-danger" (click)="onDelete(workoutTracker)">
+                <i class="fa fa-trash"></i>
+              </button>
+              <button class="btn btn-sm btn-warning" (click)="onEdit(workoutTracker)">
+                <i class="fa fa-edit"></i>
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

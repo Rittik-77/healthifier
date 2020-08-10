@@ -1,3 +1,49 @@
-<p>
-  summary works!
-</p>
+<div class="summary-body">
+  <ng-template #exist>
+    <div class="container">
+      <button class="btn btn-info" (click)="onDownload()">
+        <i class="fa fa-download"></i> Download as PDF
+      </button>
+
+      <div class="row">
+        <div class="col-xl-2 col-md-4 col-sm-6" *ngFor="let summary of summaryList">
+          <div class="card-group">
+            <div class="card">
+              <div class="card-header" style="background-color: darkblue; color: white">
+                {{summary.date | date}}
+              </div>
+              <div *ngIf="summary.calories>=0; then gained else burned"></div>
+              <ng-template #gained>
+                <div class="card-body bg-success">
+                  <h2>{{summary.calories | number : '.0-2'}}</h2>
+                </div>
+              </ng-template>
+              <ng-template #burned>
+                <div class="card-body bg-danger">
+                  <h2>{{-summary.calories | number : '.0-2'}}</h2>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </ng-template>
+
+  <ng-template #empty>
+    <div class="container">
+      <div class="jumbotron">
+        <h4>
+          No information available <i class="fa fa-exclamation-triangle"></i>
+        </h4>
+        <p>
+          Please enter your food and workout information in tracker
+        </p>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<div *ngIf="listExist; then exist else empty"></div>

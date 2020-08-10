@@ -1,3 +1,5 @@
+import { Summary } from './../models/summary/summary';
+import { SummaryService } from './../services/summary/summary.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SummaryComponent implements OnInit {
 
-  constructor() { }
+  summaryList: Summary[]
+  listExist: boolean
+  enableDownloadButton: boolean
+
+  constructor(private summaryService: SummaryService) { }
 
   ngOnInit() {
+
+    this.summaryService.getSummary()
+      .subscribe(response => {
+        this.summaryList = response
+        this.listExist = true
+        console.log(this.summaryList)
+      }, error => console.log(error))
   }
 
 }

@@ -1,0 +1,59 @@
+<div class="card-header" style="background-color: darkblue; color: white">
+  <div class="row">
+      <div class="col">
+          Add Workout Details
+      </div>
+      <div class="col-1">
+          <button class="btn btn-sm btn-danger" (click)="closeForm()">X</button>
+      </div>
+  </div>
+</div>
+
+<div class="card-body" style="background-color: darkolivegreen">
+  <form [formGroup]="workoutTrackerForm">
+      <label *ngIf="workoutTrackerForm.invalid" style="color: rgb(241, 31, 31)">
+          *All fields are mandatory
+      </label>
+      <div class="form-group">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Workout Name</span>
+              </div>
+              <input type="text" class="form-control" id="workoutName" formControlName="workoutName"
+                  placeholder="Type to search" list="workouts" required aria-describedby="basic-addon1">
+              <datalist id="workouts">
+                  <option *ngFor="let workout of workoutList" value="{{workout.name}}">
+              </datalist>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col">
+              <div class="form-group">
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon2">
+                              Duration (in mins)
+                          </span>
+                      </div>
+                      <input type="text" class="form-control" id="duration" formControlName="duration"
+                          placeholder="Duration" required aria-describedby="basic-addon2">
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="form-group">
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon3">Date</span>
+                      </div>
+                      <input type="date" class="form-control" id="date" formControlName="date" required [max]="today"
+                          aria-describedby="basic-addon3">
+                  </div>
+              </div>
+          </div>
+      </div>
+      <button class="btn btn-info" (click)="onSubmitAddToTracker()" [disabled]="workoutTrackerForm.invalid">
+          Add to Tracker
+      </button>
+  </form>
+</div>

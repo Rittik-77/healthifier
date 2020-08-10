@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -104,6 +105,9 @@ public class FoodTrackerServiceImpl implements FoodTrackerService {
         for (FoodTrackerDTO foodTrackerDTO : foodTrackerDTOListForLoggedUser)
             foodTrackerList.add(transformer.transformToModel(foodTrackerDTO));
 
+        // Sort Date Wise
+        Collections.sort(foodTrackerList, new FoodTrackerSorter().reversed());
+
         logger.info("Service: Success fetching food tracker");
         return foodTrackerList;
     }
@@ -184,7 +188,7 @@ public class FoodTrackerServiceImpl implements FoodTrackerService {
         foodTrackerDAO.deleteById(id);
 
         // Check delete was successful
-        if(!foodTrackerDAO.findById(id).isEmpty())
+        if(foodTrackerDAO.findById(id).isPresent())
             throw new AppException("Failed to delete from Database");
 
         logger.info("Service: Successfully deleted Food from Tracker");

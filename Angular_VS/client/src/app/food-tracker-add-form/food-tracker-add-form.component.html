@@ -11,7 +11,7 @@
 
 <div class="card-body" style="background-color: darkolivegreen">
     <form [formGroup]="foodTrackerForm">
-        <label *ngIf="foodTrackerForm.touched && foodTrackerForm.invalid" style="color: red">
+        <label *ngIf="foodTrackerForm.invalid" style="color: rgb(241, 31, 31)">
             *All fields are mandatory
         </label>
         <div class="form-group">

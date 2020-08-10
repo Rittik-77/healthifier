@@ -1,7 +1,7 @@
 <div class="card-header" style="background-color: darkblue; color: white">
   <div class="row">
       <div class="col">
-          Edit Food Details
+          Edit Workout Details
       </div>
       <div class="col-1">
           <button class="btn btn-sm btn-danger" (click)="closeForm()">X</button>
@@ -10,28 +10,27 @@
 </div>
 
 <div class="card-body" style="background-color: darkolivegreen">
-  <form [formGroup]="foodTrackerForm">
-      <label *ngIf="foodTrackerForm.touched && foodTrackerForm.invalid" style="color: rgb(241, 31, 31)">
+  <form [formGroup]="workoutTrackerForm">
+      <label *ngIf="workoutTrackerForm.touched && workoutTrackerForm.invalid" style="color: rgb(241, 31, 31)">
           *All fields are mandatory
       </label>
       <div class="form-group">
           <div class="input-group mb-3">
               <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1">Food Name</span>
+                  <span class="input-group-text" id="basic-addon1">Workout Name</span>
               </div>
               <input 
                 type="text" 
                 class="form-control" 
-                id="foodName" 
-                formControlName="foodName"
+                id="workoutName" 
+                formControlName="workoutName"
                 placeholder="Type to search"
-                value={{currentFoodTrackerName}} 
-                list="foods" 
+                value={{currentWorkoutTrackerName}} 
+                list="workouts" 
                 required 
-                aria-describedby="basic-addon1"
-                (change)="addFormFoodNameChanged($event)">
-              <datalist id="foods">
-                  <option *ngFor="let food of foodList" value="{{food.name}}">
+                aria-describedby="basic-addon1">
+              <datalist id="workouts">
+                  <option *ngFor="let workout of workoutList" value="{{workout.name}}">
               </datalist>
           </div>
       </div>
@@ -41,15 +40,15 @@
                   <div class="input-group mb-3">
                         <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon2">
-                                    Qty (in {{currentFoodTrackerQtyEnum | lowercase}})
+                                    Duration (in mins)
                                 </span>
                             </div>
                       <input type="text" 
                             class="form-control" 
-                            id="amount" 
-                            formControlName="amount"
-                            value={{currentFoodTrackerAmount}} 
-                            placeholder="Amount" 
+                            id="duration" 
+                            formControlName="duration"
+                            value={{currentWorkoutTrackerDuration}} 
+                            placeholder="Duration" 
                             required 
                             aria-describedby="basic-addon2">
                   </div>
@@ -64,7 +63,7 @@
                       <input type="date" 
                             class="form-control" 
                             id="date" 
-                            value={{currentFoodTrackerDate}} 
+                            value={{currentWorkoutTrackerDate}} 
                             formControlName="date" 
                             required 
                             [max]="today"
@@ -73,8 +72,8 @@
               </div>
           </div>
       </div>
-      <button class="btn btn-info" (click)="onSubmitUpdateToTracker()" [disabled]="foodTrackerForm.invalid">
-        Update to Tracker
+      <button class="btn btn-info" (click)="onSubmitUpdateToTracker()" [disabled]="workoutTrackerForm.invalid">
+          Update to Tracker
       </button>
   </form>
 </div>

@@ -27,12 +27,24 @@ public class UserServiceImpl implements UserService {
 
         // Validate if user with this email exists
         UserDTO userDTO = userDAO.findById(email).orElse(null);
-        if(userDTO == null)
-            throw new AppException("User with given email id does not exist");
+        BaseValidator.checkObjectIsNotNull(userDTO, "User with given email id does not exist");
 
         logger.info("Success: Fetching username from email");
 
         // Return username
         return userDTO.getUsername();
+    }
+
+    @Override
+    public double getWeightByEmail(String email) throws AppException {
+
+        logger.info("Service: Start fetching weight from email");
+
+        // Validate if user with this email exists
+        UserDTO userDTO = userDAO.findById(email).orElse(null);
+        BaseValidator.checkObjectIsNotNull(userDTO, "User with given email id does not exist");
+
+        logger.info("Success: Fetching weight of user");
+        return userDTO.getWeight();
     }
 }

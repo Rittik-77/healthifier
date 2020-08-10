@@ -1,9 +1,12 @@
 package com.ricky.healthifier.service.workout;
 
 import com.ricky.healthifier.dao.WorkoutDAO;
+import com.ricky.healthifier.datamodel.food.Food;
 import com.ricky.healthifier.datamodel.workout.Workout;
+import com.ricky.healthifier.entity.food.FoodDTO;
 import com.ricky.healthifier.entity.workout.WorkoutDTO;
 import com.ricky.healthifier.entity.workout.WorkoutDTOTransformer;
+import com.ricky.healthifier.utils.commons.BaseValidator;
 import com.ricky.healthifier.utils.exception.AppException;
 import com.ricky.healthifier.utils.exception.ExceptionLevel;
 import org.slf4j.Logger;
@@ -49,5 +52,21 @@ public class WorkoutServiceImpl implements WorkoutService {
 
         // Return list of Workouts
         return workoutList;
+    }
+
+    @Override
+    public Workout getWorkoutByName(String workoutName) throws AppException {
+
+        logger.info("Service: Start fetching Workout By Name");
+
+        // Retrieve from Database
+        WorkoutDTO workoutDTO = workoutDAO.findById(workoutName).orElse(null);
+        BaseValidator.checkObjectIsNotNull(workoutDTO, "Food with requested name not found");
+
+        // Convert to Model
+        Workout workout = transformer.transformToModel(workoutDTO);
+
+        logger.info("Service: Success Fetching Workout By Name");
+        return workout;
     }
 }

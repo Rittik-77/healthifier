@@ -8,4 +8,6 @@ import java.util.List;
 public interface WorkoutService {
 
     List<Workout> getAllWorkouts() throws AppException;
+
+    Workout getWorkoutByName(String workoutName) throws AppException;
 }

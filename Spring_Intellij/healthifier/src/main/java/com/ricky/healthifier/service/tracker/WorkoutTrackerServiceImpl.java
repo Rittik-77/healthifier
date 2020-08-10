@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -105,6 +106,9 @@ public class WorkoutTrackerServiceImpl implements WorkoutTrackerService {
             workoutTrackerList.add(transformer.transformToModel(workoutTrackerDTO));
         }
 
+        // Sort Date Wise
+        Collections.sort(workoutTrackerList, new WorkoutTrackerSorter().reversed());
+
         logger.info("Service: Success fetching workout tracker");
         return workoutTrackerList;
     }
@@ -185,7 +189,7 @@ public class WorkoutTrackerServiceImpl implements WorkoutTrackerService {
         workoutTrackerDAO.deleteById(id);
 
         // Check delete was successful
-        if(!workoutTrackerDAO.findById(id).isEmpty())
+        if(workoutTrackerDAO.findById(id).isPresent())
             throw new AppException("Failed to delete from Database");
 
         logger.info("Service: Successfully deleted Workout from Tracker");
