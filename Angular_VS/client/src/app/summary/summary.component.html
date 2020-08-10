@@ -1,9 +1,31 @@
 <div class="summary-body">
   <ng-template #exist>
     <div class="container">
-      <button class="btn btn-info" (click)="onDownload()">
-        <i class="fa fa-download"></i> Download as PDF
-      </button>
+
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-2">
+            <div class="btn bg-success" style="margin-bottom: 1.5rem">
+              <strong>Calories gained</strong>
+            </div>
+            <div class="btn bg-danger">
+              <strong>Calories burned</strong>
+            </div>
+          </div>
+          <div class="col-8">
+            <h2 style="line-height: 3rem">The minimum average calorie requirements for a human being is 
+              <span class="bg-success btn"><h2>1200</h2></span>
+            </h2>
+          </div>
+          <div class="col-2">
+            <button class="btn btn-info" (click)="onDownload()">
+              <i class="fa fa-download"></i> Download Detailed Summary Report as PDF
+            </button>
+          </div>
+        </div>
+      </div>
+
+
 
       <div class="row">
         <div class="col-xl-2 col-md-4 col-sm-6" *ngFor="let summary of summaryList">

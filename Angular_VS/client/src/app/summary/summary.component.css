@@ -3,7 +3,12 @@
 }
 
 .card {
-    margin: 3vh auto;
+    margin: 2vh auto;
     text-align: center;
     border: 0
+}
+
+.jumbotron {
+    padding: 1rem 1rem;
+    margin: 0 auto
 }
