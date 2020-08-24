@@ -98,7 +98,7 @@ public class WorkoutTrackerServiceImpl implements WorkoutTrackerService {
                 dto.getUserDTO().getEmail().equals(email)).collect(Collectors.toList());
 
         if(workoutTrackerDTOListForLoggedUser.isEmpty()) {
-            throw new AppException("Your workout list is empty", ExceptionLevel.INFO, "No workouts added by user in tracker");
+            logger.info("Your workout list is empty");
         }
 
         // Transform to model

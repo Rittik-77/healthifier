@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class SummaryService extends TokenHttpService {
 
-  baseUrl = Constants.API + 'summary'
+  baseUrl = Constants.API + 'summary/'
 
   constructor(protected http: HttpClient) {
     super(http)
@@ -18,6 +18,11 @@ export class SummaryService extends TokenHttpService {
   // Get Summary
   getSummary(): Observable<any> {
     return this.get(this.baseUrl)
+  }
+
+  getReport(): Observable<any> {
+    const url = this.baseUrl + 'report'
+    return this.getPdf(url)
   }
 
 }

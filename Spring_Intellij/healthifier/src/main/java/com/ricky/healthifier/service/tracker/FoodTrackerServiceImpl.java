@@ -98,7 +98,7 @@ public class FoodTrackerServiceImpl implements FoodTrackerService {
                 .filter(dto -> dto.getUserDTO().getEmail().equals(email)).collect(Collectors.toList());
 
         if(foodTrackerDTOListForLoggedUser.isEmpty()) {
-            throw new AppException("Your food list is empty", ExceptionLevel.INFO, "No foods added by user in tracker");
+            logger.info("Your food list is empty");
         }
 
         // Transform to model

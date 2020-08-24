@@ -20,6 +20,16 @@ export class TokenHttpService {
     return this.http.get(url, { headers: this.defaultHeaders });
   }
 
+  // GET PDF
+  getPdf(url: string): Observable<any> {
+    this.defaultHeaders = new HttpHeaders({
+      // 'Content-Type':  'application/json',
+      'token': localStorage.getItem('token'),
+      'Accept': 'application/pdf'
+    })
+    return this.http.get(url, { headers: this.defaultHeaders, responseType: 'arraybuffer' });
+  }
+
   // POST Method
   post(url: string, body: Object): Observable<any> {
     this.defaultHeaders = new HttpHeaders({
